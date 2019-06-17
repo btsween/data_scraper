@@ -14,7 +14,6 @@ public class Scraper {
 	private String itemContainerPath;
 	private WebElement itemContainer;
 	private WebDriver driver;
-	private DatabaseConnection sqlHandle;
 
 	public Scraper() throws InterruptedException {
 		driver = new SeleniumInit().getDriver();
