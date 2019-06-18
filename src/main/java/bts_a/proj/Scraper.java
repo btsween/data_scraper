@@ -30,9 +30,14 @@ public class Scraper {
 		Map<String, Integer> data = new HashMap<String, Integer>();
 		int i = 1;
 		while (i <= nodeNum) {
+			String nodePath = (itemContainerPath) + "/li[" + i + "]";
 			try {
-				String nodePath = (itemContainerPath) + "/li[" + i + "]";
 				WebElement currentNode = driver.findElement(By.xpath(nodePath));
+				((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", currentNode);
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+			try {
 				WebElement catalogNum = driver.findElement(By.xpath(nodePath + "/div[1]"));
 				String cn = catalogNum.getAttribute("data-itemid");
 				WebElement price = driver.findElement(By.xpath(nodePath + "/descendant::span[@class='price-sales']"));
@@ -43,13 +48,18 @@ public class Scraper {
 					//data.put(cn, priceInt);
 					//sqlHandle.insertData(cn, priceInt);
 				}
-				((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", currentNode);
+				//((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", currentNode);
 			} catch (Exception e) {
 				System.out.println("Data grab failed . . .");
 				System.out.println(e);
 			}
 			try {
-				Thread.sleep(1500);
+				//((JavascriptExecutor)driver).executeScript("window.scrollBy(0,1000);");
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+			try {
+				Thread.sleep(3000);
 			} catch (Exception e) {
 				System.out.println("Sleep failed . . .");
 			}
